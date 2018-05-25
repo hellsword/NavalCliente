@@ -19,6 +19,7 @@ namespace Naval_cliente
         public NetworkStream ns;
         public TcpClient client = new TcpClient();
         public Thread thread;
+        public Preparacion prepa = new Preparacion();
 
         public Form1()
         {
@@ -41,36 +42,78 @@ namespace Naval_cliente
 
                         //Console.WriteLine("Cliente conectado!!");
                         ns = client.GetStream();
-                        //envia_nombre_cliente(username);
-                        //thread = new Thread(o => RecibeDatos((TcpClient)o));
+                        envia_nombre_cliente(username);
+                        thread = new Thread(o => RecibeDatos((TcpClient)o));
                         Form1.CheckForIllegalCrossThreadCalls = false;
 
-                        chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
-
-                        //Desplazar el cursor del TextBox hasta el final
-                        chat_text.SelectionStart = chat_text.Text.Length;
-                        chat_text.ScrollToCaret();
+                        prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
 
                         thread.Start(client);
                     }
                 }
                 catch (SocketException se)
                 {
-                    chat_text.Text = "No se pudo conectar al servidor: " + se.Message.ToString() + "\n";
-
-                    //Desplazar el cursor del TextBox hasta el final
-                    chat_text.SelectionStart = chat_text.Text.Length;
-                    chat_text.ScrollToCaret();
+                    prepa.chat_text.Text = "No se pudo conectar al servidor: " + se.Message.ToString() + "\n";
                 }
 
             }
             else
             {
-                chat_text.Text = chat_text.Text + "Ya se encuentra conectado \n";
+                prepa.chat_text.Text = prepa.chat_text.Text + "Ya se encuentra conectado \n";
+            }
+            
 
-                //Desplazar el cursor del TextBox hasta el final
-                chat_text.SelectionStart = chat_text.Text.Length;
-                chat_text.ScrollToCaret();
+            prepa.Show();
+        }
+
+
+        private void RecibeDatos(TcpClient client)
+        {
+            NetworkStream ns = client.GetStream();
+            byte[] receivedBytes = new byte[1024];
+            int byte_count;
+
+            while ((byte_count = ns.Read(receivedBytes, 0, receivedBytes.Length)) > 0)
+            {
+                prepa.chat_text.Text = prepa.chat_text.Text + Encoding.ASCII.GetString(receivedBytes, 0, byte_count);
+
+            }
+        }
+
+
+        private void envia_nombre_cliente(string data)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(data);
+            ns.Write(buffer, 0, buffer.Length);
+        }
+
+
+        private void exitMenuItem_Click(object sender, EventArgs e)
+        {
+            if (client.Connected)
+            {
+                client.Client.Shutdown(SocketShutdown.Send);
+                thread.Join();
+                ns.Close();
+                client.Close();
+                Application.Exit();
+            }
+            Application.Exit();
+        }
+
+        private void ip_text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void puerto_text_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

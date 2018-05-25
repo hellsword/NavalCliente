@@ -12,9 +12,17 @@ namespace Naval_cliente
 {
     public partial class Preparacion : Form
     {
+
         public Preparacion()
         {
             InitializeComponent();
+        }
+
+        private void chat_text_TextChanged(object sender, EventArgs e)
+        {
+            //Desplazar el cursor del TextBox hasta el final
+            chat_text.SelectionStart = chat_text.Text.Length;
+            chat_text.ScrollToCaret();
         }
     }
 }
