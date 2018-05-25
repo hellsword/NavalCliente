@@ -45,7 +45,7 @@
             this.label1.Location = new System.Drawing.Point(112, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(373, 78);
+            this.label1.Size = new System.Drawing.Size(295, 61);
             this.label1.TabIndex = 0;
             this.label1.Text = "Batalla Naval";
             // 
@@ -54,9 +54,10 @@
             this.ip_text.Location = new System.Drawing.Point(212, 107);
             this.ip_text.Margin = new System.Windows.Forms.Padding(5);
             this.ip_text.Name = "ip_text";
-            this.ip_text.Size = new System.Drawing.Size(214, 41);
+            this.ip_text.Size = new System.Drawing.Size(214, 35);
             this.ip_text.TabIndex = 1;
-            this.ip_text.Text = "192.168.0.13";
+            this.ip_text.Text = "10.0.188.226";
+            this.ip_text.TextChanged += new System.EventHandler(this.ip_text_TextChanged);
             this.ip_text.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ip_text_KeyPress);
             // 
             // label2
@@ -65,7 +66,7 @@
             this.label2.Location = new System.Drawing.Point(118, 113);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 36);
+            this.label2.Size = new System.Drawing.Size(47, 29);
             this.label2.TabIndex = 2;
             this.label2.Text = "IP: ";
             // 
@@ -74,7 +75,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(98, 181);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(119, 36);
+            this.label3.Size = new System.Drawing.Size(96, 29);
             this.label3.TabIndex = 3;
             this.label3.Text = "Puerto: ";
             // 
@@ -82,7 +83,7 @@
             // 
             this.puerto_text.Location = new System.Drawing.Point(212, 175);
             this.puerto_text.Name = "puerto_text";
-            this.puerto_text.Size = new System.Drawing.Size(214, 41);
+            this.puerto_text.Size = new System.Drawing.Size(214, 35);
             this.puerto_text.TabIndex = 4;
             this.puerto_text.Text = "9500";
             this.puerto_text.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.puerto_text_KeyPress);
@@ -92,7 +93,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(58, 245);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(179, 36);
+            this.label4.Size = new System.Drawing.Size(148, 29);
             this.label4.TabIndex = 5;
             this.label4.Text = "Tu Nombre: ";
             // 
@@ -100,7 +101,7 @@
             // 
             this.username_text.Location = new System.Drawing.Point(212, 242);
             this.username_text.Name = "username_text";
-            this.username_text.Size = new System.Drawing.Size(214, 41);
+            this.username_text.Size = new System.Drawing.Size(214, 35);
             this.username_text.TabIndex = 6;
             this.username_text.Text = "Black";
             // 
@@ -118,7 +119,7 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 36F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(532, 392);

@@ -116,5 +116,10 @@ namespace Naval_cliente
                 e.Handled = true;
             }
         }
+
+        private void ip_text_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
