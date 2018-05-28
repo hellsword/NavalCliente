@@ -92,6 +92,10 @@ namespace Naval_cliente
         {
             if (client.Connected)
             {
+                string mensaje_final = "ahi te van los datos estadisticos vieeeeja, son del usuario: " + username;
+                byte[] buffer = Encoding.ASCII.GetBytes(mensaje_final);
+                ns.Write(buffer, 0, buffer.Length);
+
                 client.Client.Shutdown(SocketShutdown.Send);
                 thread.Join();
                 ns.Close();
