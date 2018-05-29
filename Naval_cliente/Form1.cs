@@ -55,30 +55,8 @@ namespace Naval_cliente
                         Form1.CheckForIllegalCrossThreadCalls = false;
 
                         prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
+                        
 
-                        /*
-                        int i, j, xi = 0, yi = 0;
-                        papel = prepa.pi//pictureBox1.CreateGraphics();
-                        Pen lapiz = new Pen(Color.Black);
-
-                        for (i = 0; i < 20; i++)
-                        {
-
-                            for (j = 0; j < 20; j++)
-                            {
-                                papel.DrawRectangle(lapiz, xi, yi, 20, 20);
-                                string casilla = num_casill.ToString();
-                                using (Font myFont = new Font("Arial", 8))
-                                {
-                                    papel.DrawString(casilla, myFont, Brushes.Black, new PointF(xi, yi));
-                                }
-
-                                xi = xi + 20;
-                                num_casill = num_casill + 1;
-                            }
-                            xi = 0;
-                            yi = yi + 20;
-                        }*/
 
                         thread.Start(client);
                     }
@@ -86,12 +64,14 @@ namespace Naval_cliente
                 catch (SocketException se)
                 {
                     prepa.chat_text.Text = "No se pudo conectar al servidor: " + se.Message.ToString() + "\n";
+                    
                 }
 
             }
             else
             {
                 prepa.chat_text.Text = prepa.chat_text.Text + "Ya se encuentra conectado \n";
+                
             }
             
 
