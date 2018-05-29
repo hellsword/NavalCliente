@@ -21,6 +21,11 @@ namespace Naval_cliente
         public Thread thread;
         public Preparacion prepa = new Preparacion();
 
+        int num_casill = 1;
+        //List<clsLista> datos = new List<clsLista>();
+        Graphics papel;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -34,10 +39,13 @@ namespace Naval_cliente
                 {
                     if (ip_text.Text.Length > 0 && puerto_text.Text.Length > 0 && username_text.Text.Length > 0)
                     {
+
+                        
+                        
                         IPAddress ip = IPAddress.Parse(ip_text.Text);
                         int PORT = Int32.Parse(puerto_text.Text);
                         username = username_text.Text;
-
+                        
                         client.Connect(ip, PORT);
 
                         //Console.WriteLine("Cliente conectado!!");
@@ -47,6 +55,30 @@ namespace Naval_cliente
                         Form1.CheckForIllegalCrossThreadCalls = false;
 
                         prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
+
+                        /*
+                        int i, j, xi = 0, yi = 0;
+                        papel = prepa.pi//pictureBox1.CreateGraphics();
+                        Pen lapiz = new Pen(Color.Black);
+
+                        for (i = 0; i < 20; i++)
+                        {
+
+                            for (j = 0; j < 20; j++)
+                            {
+                                papel.DrawRectangle(lapiz, xi, yi, 20, 20);
+                                string casilla = num_casill.ToString();
+                                using (Font myFont = new Font("Arial", 8))
+                                {
+                                    papel.DrawString(casilla, myFont, Brushes.Black, new PointF(xi, yi));
+                                }
+
+                                xi = xi + 20;
+                                num_casill = num_casill + 1;
+                            }
+                            xi = 0;
+                            yi = yi + 20;
+                        }*/
 
                         thread.Start(client);
                     }

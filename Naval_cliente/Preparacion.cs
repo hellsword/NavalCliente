@@ -12,6 +12,9 @@ namespace Naval_cliente
 {
     public partial class Preparacion : Form
     {
+        int num_casill = 1;
+        //List<clsLista> datos = new List<clsLista>();
+        Graphics papel;
 
         public Preparacion()
         {
@@ -23,6 +26,32 @@ namespace Naval_cliente
             //Desplazar el cursor del TextBox hasta el final
             chat_text.SelectionStart = chat_text.Text.Length;
             chat_text.ScrollToCaret();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            int i, j, xi = 0, yi = 0;
+            papel = pictureBox1.CreateGraphics();
+            Pen lapiz = new Pen(Color.Black);
+
+            for (i = 0; i < 20; i++)
+            {
+
+                for (j = 0; j < 20; j++)
+                {
+                    papel.DrawRectangle(lapiz, xi, yi, 20, 20);
+                    string casilla = num_casill.ToString();
+                    using (Font myFont = new Font("Arial", 8))
+                    {
+                        papel.DrawString(casilla, myFont, Brushes.Black, new PointF(xi, yi));
+                    }
+
+                    xi = xi + 20;
+                    num_casill = num_casill + 1;
+                }
+                xi = 0;
+                yi = yi + 20;
+            }
         }
     }
 }
