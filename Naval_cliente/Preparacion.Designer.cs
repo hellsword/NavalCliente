@@ -40,6 +40,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.Barco = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.jugar_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,12 +158,24 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Espacios ";
             // 
+            // jugar_btn
+            // 
+            this.jugar_btn.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.jugar_btn.Location = new System.Drawing.Point(806, 32);
+            this.jugar_btn.Name = "jugar_btn";
+            this.jugar_btn.Size = new System.Drawing.Size(114, 36);
+            this.jugar_btn.TabIndex = 14;
+            this.jugar_btn.Text = "Jugar";
+            this.jugar_btn.UseVisualStyleBackColor = true;
+            this.jugar_btn.Click += new System.EventHandler(this.jugar_btn_Click);
+            // 
             // Preparacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(1000, 619);
+            this.Controls.Add(this.jugar_btn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Barco);
             this.Controls.Add(this.listBox1);
@@ -200,5 +213,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label Barco;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button jugar_btn;
     }
 }

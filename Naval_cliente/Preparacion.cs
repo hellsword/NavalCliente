@@ -15,12 +15,14 @@ namespace Naval_cliente
         int num_casill = 1;
         List<clsDato> datos = new List<clsDato>();
         List<clsbarco> barcos = new List<clsbarco>();
+        List<embarcacion> embarcacion = new List<embarcacion>();
         Graphics papel;
         int[,] tablero = new int[20, 20];
 
         public Preparacion()
         {
             InitializeComponent();
+            jugar_btn.Hide();
 
         }
 
@@ -111,6 +113,7 @@ namespace Naval_cliente
             {
                 listBox1.Items.Add(barcos[i].nombre + ":  " + barcos[i].espacio);
             }
+            button1.Hide();
 
         }
 
@@ -272,6 +275,13 @@ namespace Naval_cliente
 
                 }
 
+                embarcacion emb = new embarcacion();
+                emb.nombre = bar;
+                emb.inicio = rango_in;
+                emb.fin = rango_fn;
+                emb.estado = "vivo";
+                embarcacion.Add(emb);
+
                 comboBox1.Items.Remove(bar);
                 listBox1.Items.Remove(bar + ":  " + aux);
                 inicio.Text = "";
@@ -281,6 +291,28 @@ namespace Naval_cliente
                 rangoy1 = 0;
                 rangox2 = 0;
                 rangoy2 = 0;
+
+                if(comboBox1.Items.Count == 0)
+                {
+                    jugar_btn.Show();
+                }
+            }
+        }
+
+        private void jugar_btn_Click(object sender, EventArgs e)
+        {
+            string anuncio = "";
+            
+            for(int i = 0; i < embarcacion.Count(); i++)
+            {
+                anuncio = anuncio + embarcacion[i].nombre + "\r\n";
+                anuncio = anuncio + embarcacion[i].inicio + "\r\n";
+                anuncio = anuncio + embarcacion[i].fin + "\r\n";
+                anuncio = anuncio + embarcacion[i].estado + "\r\n";
+                anuncio = anuncio + "\r\n";
+
+                MessageBox.Show(anuncio);
+
             }
         }
     }
