@@ -39,45 +39,44 @@ namespace Naval_cliente
                 {
                     if (ip_text.Text.Length > 0 && puerto_text.Text.Length > 0 && username_text.Text.Length > 0)
                     {
-
-                        
-                        
                         IPAddress ip = IPAddress.Parse(ip_text.Text);
                         int PORT = Int32.Parse(puerto_text.Text);
                         username = username_text.Text;
                         
                         client.Connect(ip, PORT);
-
-                        //Console.WriteLine("Cliente conectado!!");
                         ns = client.GetStream();
-                        envia_nombre_cliente(username);
-                        thread = new Thread(o => RecibeDatos((TcpClient)o));
+                        envia_mensaje(username);
+
                         Form1.CheckForIllegalCrossThreadCalls = false;
 
-                        prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
                         
+                        thread = new Thread(o => RecibeDatos((TcpClient)o));  
 
-
+                        prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
                         thread.Start(client);
+                        
                     }
                 }
                 catch (SocketException se)
                 {
                     prepa.chat_text.Text = "No se pudo conectar al servidor: " + se.Message.ToString() + "\n";
-                    
                 }
 
             }
             else
             {
                 prepa.chat_text.Text = prepa.chat_text.Text + "Ya se encuentra conectado \n";
-                
             }
-            
 
             prepa.Show();
+
         }
 
+
+        public void imprime()
+        {
+            prepa.chat_text.Text = prepa.chat_text.Text + "zzzzzzzzzzzz";
+        }
 
         private void RecibeDatos(TcpClient client)
         {
@@ -93,10 +92,11 @@ namespace Naval_cliente
         }
 
 
-        private void envia_nombre_cliente(string data)
+        public void envia_mensaje(string data)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(data);
-            ns.Write(buffer, 0, buffer.Length);
+            //byte[] buffer = Encoding.ASCII.GetBytes(data);
+            //ns.Write(buffer, 0, buffer.Length);
+            prepa.chat_text.Text = prepa.chat_text.Text + data;
         }
 
 
@@ -136,6 +136,11 @@ namespace Naval_cliente
         private void ip_text_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            envia_mensaje("aloha vieeeja");
         }
     }
 }

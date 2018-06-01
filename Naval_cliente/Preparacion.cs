@@ -40,8 +40,18 @@ namespace Naval_cliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("1) Antes de empezar el juego, pocisionar los barcos\n 2) En cada partida se podra abordar una sola casilla\n 3) El que termine con todos los barcos del oponente gana");
+            //MessageBox.Show("1) Antes de empezar el juego, pocisionar los barcos\n 2) En cada partida se podra abordar una sola casilla\n 3) El que termine con todos los barcos del oponente gana");
 
+            /////////////
+
+            Form1 form1 = new Form1();
+
+            form1.ip_text.Text = "vieeeeja";
+
+            /////////////
+
+
+            /*
             int i, j, xi = 0, yi = 0;
             papel = pictureBox1.CreateGraphics();
             Pen lapiz = new Pen(Color.Black);
@@ -114,6 +124,7 @@ namespace Naval_cliente
                 listBox1.Items.Add(barcos[i].nombre + ":  " + barcos[i].espacio);
             }
             button1.Hide();
+            */
 
         }
 
@@ -299,21 +310,27 @@ namespace Naval_cliente
             }
         }
 
-        private void jugar_btn_Click(object sender, EventArgs e)
+        public void jugar_btn_Click(object sender, EventArgs e)
         {
             string anuncio = "";
             
             for(int i = 0; i < embarcacion.Count(); i++)
             {
-                anuncio = anuncio + embarcacion[i].nombre + "\r\n";
-                anuncio = anuncio + embarcacion[i].inicio + "\r\n";
-                anuncio = anuncio + embarcacion[i].fin + "\r\n";
-                anuncio = anuncio + embarcacion[i].estado + "\r\n";
-                anuncio = anuncio + "\r\n";
-
-                MessageBox.Show(anuncio);
-
+                anuncio = anuncio + "nombre:"+ embarcacion[i].nombre + ",";
+                anuncio = anuncio + "inicio:"+ embarcacion[i].inicio + ",";
+                anuncio = anuncio + "fin:" + embarcacion[i].fin;
+                if(i < embarcacion.Count()-1)
+                    anuncio = anuncio + "-";
+                //anuncio = anuncio + embarcacion[i].estado + "-";
+                //anuncio = anuncio + "\r\n";
             }
+
+            Form1 form1 = new Form1();
+
+            byte[] buffer = Encoding.ASCII.GetBytes(anuncio);
+            form1.ns.Write(buffer, 0, buffer.Length);
+
+            MessageBox.Show(anuncio);
         }
     }
  }

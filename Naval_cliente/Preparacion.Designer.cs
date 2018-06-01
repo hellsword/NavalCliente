@@ -81,7 +81,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(635, 106);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 25);
+            this.comboBox1.Size = new System.Drawing.Size(121, 30);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.Text = "Barcos";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -103,14 +103,14 @@
             // 
             this.inicio.Location = new System.Drawing.Point(635, 158);
             this.inicio.Name = "inicio";
-            this.inicio.Size = new System.Drawing.Size(121, 24);
+            this.inicio.Size = new System.Drawing.Size(121, 28);
             this.inicio.TabIndex = 7;
             // 
             // fin
             // 
             this.fin.Location = new System.Drawing.Point(806, 158);
             this.fin.Name = "fin";
-            this.fin.Size = new System.Drawing.Size(114, 24);
+            this.fin.Size = new System.Drawing.Size(114, 28);
             this.fin.TabIndex = 8;
             // 
             // label1
@@ -118,7 +118,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(587, 164);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 18);
+            this.label1.Size = new System.Drawing.Size(54, 24);
             this.label1.TabIndex = 9;
             this.label1.Text = "Inicio";
             // 
@@ -127,17 +127,17 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(771, 161);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 18);
+            this.label2.Size = new System.Drawing.Size(37, 24);
             this.label2.TabIndex = 10;
             this.label2.Text = "Fin";
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
+            this.listBox1.ItemHeight = 22;
             this.listBox1.Location = new System.Drawing.Point(635, 215);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(225, 225);
+            this.listBox1.Size = new System.Drawing.Size(225, 224);
             this.listBox1.TabIndex = 11;
             // 
             // Barco
@@ -145,7 +145,7 @@
             this.Barco.AutoSize = true;
             this.Barco.Location = new System.Drawing.Point(641, 194);
             this.Barco.Name = "Barco";
-            this.Barco.Size = new System.Drawing.Size(52, 18);
+            this.Barco.Size = new System.Drawing.Size(64, 24);
             this.Barco.TabIndex = 12;
             this.Barco.Text = "Barco:";
             // 
@@ -154,7 +154,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(695, 194);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 18);
+            this.label3.Size = new System.Drawing.Size(92, 24);
             this.label3.TabIndex = 13;
             this.label3.Text = "Espacios ";
             // 
@@ -171,7 +171,7 @@
             // 
             // Preparacion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.ClientSize = new System.Drawing.Size(1000, 619);
@@ -213,6 +213,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label Barco;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button jugar_btn;
+        public System.Windows.Forms.Button jugar_btn;
     }
 }

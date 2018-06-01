@@ -8,7 +8,6 @@ C:\Users\Fenrir\source\repos\Naval_cliente\Naval_cliente\obj\Debug\Naval_cliente
 C:\Users\Fenrir\source\repos\Naval_cliente\Naval_cliente\obj\Debug\Naval_cliente.csproj.CoreCompileInputs.cache
 C:\Users\Fenrir\source\repos\Naval_cliente\Naval_cliente\obj\Debug\Naval_cliente.exe
 C:\Users\Fenrir\source\repos\Naval_cliente\Naval_cliente\obj\Debug\Naval_cliente.pdb
-C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.csprojResolveAssemblyReference.cache
 C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.Form1.resources
 C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.Properties.Resources.resources
 C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.csproj.GenerateResource.cache
@@ -41,3 +40,4 @@ C:\Users\Nicolas\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cli
 C:\Users\Nicolas\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.exe
 C:\Users\Nicolas\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.pdb
 C:\Users\Fenrir\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.csprojAssemblyReference.cache
+C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.csprojAssemblyReference.cache
