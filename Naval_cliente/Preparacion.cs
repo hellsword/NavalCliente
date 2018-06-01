@@ -40,16 +40,11 @@ namespace Naval_cliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("1) Antes de empezar el juego, pocisionar los barcos\n 2) En cada partida se podra abordar una sola casilla\n 3) El que termine con todos los barcos del oponente gana");
 
-            /////////////
+            IForm formInterface = this.Owner as IForm;
 
-            Form1 form1 = new Form1();
-
-            form1.ip_text.Text = "vieeeeja";
-
-            /////////////
-
+            if (formInterface != null)
+                formInterface.envia_mensaje("zzzzzzzzzzzzzzzzz");
 
             /*
             int i, j, xi = 0, yi = 0;
@@ -324,13 +319,12 @@ namespace Naval_cliente
                 //anuncio = anuncio + embarcacion[i].estado + "-";
                 //anuncio = anuncio + "\r\n";
             }
+            
+            IForm formInterface = this.Owner as IForm;
 
-            Form1 form1 = new Form1();
-
-            byte[] buffer = Encoding.ASCII.GetBytes(anuncio);
-            form1.ns.Write(buffer, 0, buffer.Length);
-
-            MessageBox.Show(anuncio);
+            if (formInterface != null)
+                formInterface.envia_mensaje(anuncio);
+            //MessageBox.Show(anuncio);
         }
     }
  }

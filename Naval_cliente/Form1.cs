@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Naval_cliente
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IForm
     {
         public string username;
         public NetworkStream ns;
@@ -49,12 +49,11 @@ namespace Naval_cliente
 
                         Form1.CheckForIllegalCrossThreadCalls = false;
 
-                        
-                        thread = new Thread(o => RecibeDatos((TcpClient)o));  
+                        //thread = new Thread(o => RecibeDatos((TcpClient)o));  
 
                         prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\n\n";
-                        thread.Start(client);
-                        
+                        //thread.Start(client);
+                        envia_mensaje("zzz");
                     }
                 }
                 catch (SocketException se)
@@ -68,7 +67,7 @@ namespace Naval_cliente
                 prepa.chat_text.Text = prepa.chat_text.Text + "Ya se encuentra conectado \n";
             }
 
-            prepa.Show();
+            prepa.Show(this);
 
         }
 
@@ -91,13 +90,16 @@ namespace Naval_cliente
             }
         }
 
-
+        #region IForm Members
         public void envia_mensaje(string data)
         {
-            //byte[] buffer = Encoding.ASCII.GetBytes(data);
-            //ns.Write(buffer, 0, buffer.Length);
-            prepa.chat_text.Text = prepa.chat_text.Text + data;
+            /*
+            byte[] buffer = Encoding.ASCII.GetBytes(data);
+            ns.Write(buffer, 0, buffer.Length);
+            */
+            ip_text.Text = ip_text.Text + data;
         }
+        #endregion
 
 
         private void exitMenuItem_Click(object sender, EventArgs e)
@@ -140,7 +142,7 @@ namespace Naval_cliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-            envia_mensaje("aloha vieeeja");
+            envia_mensaje("bla");
         }
     }
 }
