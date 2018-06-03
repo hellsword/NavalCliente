@@ -16,68 +16,47 @@ namespace Naval_cliente
         List<clsDato> datos = new List<clsDato>();
         List<clsbarco> barcos = new List<clsbarco>();
         List<embarcacion> embarcacion = new List<embarcacion>();
-        Graphics papel;
-        int[,] tablero = new int[20, 20];
+        String[] celda = new string[2];
+        Button[,] boton_casilla = new Button[20, 20];
+        
+        
 
         public Preparacion()
         {
             InitializeComponent();
             jugar_btn.Hide();
+            int i, j;
+            celda[0] = "";
+            celda[1] = "";
 
-        }
-
-        private void chat_text_TextChanged(object sender, EventArgs e)
-        {
-            //Desplazar el cursor del TextBox hasta el final
-            chat_text.SelectionStart = chat_text.Text.Length;
-            chat_text.ScrollToCaret();
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            /*
-            IForm formInterface = this.Owner as IForm;
-
-            if (formInterface != null)
-                formInterface.envia_mensaje("config:nombre:portaaviones,inicio:1,fin:5-nombre:destructor,inicio:381,fin:384-nombre:blabla,inicio:20,fin:60-nombre:fragata1,inicio:21,fin:63");
-           */
-            
-           
-            int i, j, xi = 0, yi = 0;
-            papel = pictureBox1.CreateGraphics();
-            Pen lapiz = new Pen(Color.Black);
-
-            for (i = 0; i < 20; i++)
+            for ( i = 0; i < 20; i++)
             {
-
                 for (j = 0; j < 20; j++)
                 {
+                    boton_casilla[i, j] = new Button
+                    {
+                        Font = new Font("Arial", 6),
+                        Width = 31,
+                        Height = 31,
+                        Text = String.Format("{0}", num_casill),// es el boton en su campo texto
+                        Top = i * 31,
+                        Left = j * 31
+                    };
+                    //Panel contenedor = new Panel();
+                    this.Controls.Add(boton_casilla[i, j]);
+                    //asientoSel = boton[i, j].Text; //el campo texto de boton lo paso a una variable pero toma el ultimo valor del ciclo for
+
+                    boton_casilla[i, j].Click += new System.EventHandler(boton_Click);
                     clsDato lista;
                     lista = new clsDato();
-                    papel.DrawRectangle(lapiz, xi, yi, 20, 20);
-                    string casilla = num_casill.ToString();
-                    using (Font myFont = new Font("Arial", 8))
-                    {
-                        papel.DrawString(casilla, myFont, Brushes.Black, new PointF(xi, yi));
-                    }
-                    // se agregan datos a la lista
-                    tablero[i, j] = num_casill;
                     lista.casilla = num_casill;
                     lista.i = i;
                     lista.j = j;
-                    lista.xi = xi;
-                    lista.yi = yi;
-                    datos.Add(lista); // se agregan elementos a la lista 
-                    xi = xi + 20;
+                    lista.xi = Top;
+                    lista.yi = Left;
+                    datos.Add(lista);
                     num_casill = num_casill + 1;
                 }
-                xi = 0;
-                yi = yi + 20;
             }
 
             clsbarco bar;
@@ -119,9 +98,61 @@ namespace Naval_cliente
             {
                 listBox1.Items.Add(barcos[i].nombre + ":  " + barcos[i].espacio);
             }
-            button1.Hide();
-           
-    
+
+
+
+        }
+
+        private void boton_Click(object sender, EventArgs e)
+        {
+            Button botonSel = sender as Button;
+
+            //comprueba que el boton no haya sido seleccionado antes
+            //en caso de ya existir, lo elimina
+            if (celda[0] == botonSel.Text)
+            {
+                celda[0] = "";
+                inicio.Text = celda[0];
+                botonSel.BackColor = Color.Black;
+            }
+            else if (celda[1] == botonSel.Text)
+            {
+                celda[1] = "";
+                fin.Text = celda[1];
+                botonSel.BackColor = Color.Black;
+            }
+
+            //si el boton no ha sido seleccionado, registra su valor
+            if (celda[0] == "")
+            {
+                celda[0] = botonSel.Text;
+                inicio.Text = celda[0];
+                botonSel.BackColor = Color.Red;
+            }
+            else if (celda[1] == "")
+            {
+                celda[1] = botonSel.Text;
+                fin.Text = celda[1];
+                botonSel.BackColor = Color.Red;
+            }
+
+        }
+
+        private void chat_text_TextChanged(object sender, EventArgs e)
+        {
+            //Desplazar el cursor del TextBox hasta el final
+            chat_text.SelectionStart = chat_text.Text.Length;
+            chat_text.ScrollToCaret();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+              
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,13 +170,7 @@ namespace Naval_cliente
             int rango_fn = int.Parse(fin.Text);
             int rangox1 = 0, rangoy1 = 0, rangox2 = 0, rangoy2 = 0;
             int i, j = 0, aux = 0;
-            int resul = 0;
-
-            System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Blue);
-            System.Drawing.Graphics formGraphics;
-
-            formGraphics = pictureBox1.CreateGraphics();
-            papel = pictureBox1.CreateGraphics();
+            int resul = 0,resul2=0;
 
             for (i = 0; i < datos.Count; i++)
             {
@@ -198,6 +223,7 @@ namespace Naval_cliente
                         }
                         else
                         {//busqueda en diagonal
+                            
                             if (datos[i].i < datos[j].i)
                             {
                                 rangoy1 = datos[i].j;
@@ -216,7 +242,15 @@ namespace Naval_cliente
                                 rangoy2 = datos[i].j;
                             }
 
+                            resul2 = Math.Abs(rangoy2 - rangoy1);
                             resul = rangox2 - rangox1;
+                            if ((resul - resul2) == 0)
+                            {
+                                resul = rangox2 - rangox1;
+                            }
+                            else {
+                                resul = 0;
+                            }
                         }
 
                     }
@@ -232,9 +266,26 @@ namespace Naval_cliente
                 }
             }
 
+            MessageBox.Show("resul " + resul);
+            MessageBox.Show("resul2 " + resul2);
             if (aux - 1 != resul)
             {
                 MessageBox.Show("no se puede realizar esta operacion");
+
+                celda[0] = "";
+                celda[1] = "";
+                for (i = 0; i < datos.Count; i++)
+                {
+                    for (j = 0; j < datos.Count; j++)
+                    {
+                        if (rango_in == datos[i].casilla && rango_fn == datos[j].casilla)
+                        {
+                            boton_casilla[datos[i].i, datos[i].j].BackColor = Color.Black;
+                            boton_casilla[datos[j].i, datos[j].j].BackColor = Color.Black;
+                        }
+                    }
+
+                }
             }
             else
             {
@@ -248,13 +299,7 @@ namespace Naval_cliente
 
                         while (resul >= 0)
                         {
-                            formGraphics.FillRectangle(myBrush, new Rectangle(datos[i + k].xi, datos[i + k].yi, 20, 20));
-                            string casilla = datos[i + k].casilla.ToString();
-                            using (Font myFont = new Font("Arial", 8))
-                            {
-                                papel.DrawString(casilla, myFont, Brushes.White, new PointF(datos[i + k].xi, datos[i + k].yi));
-
-                            }
+                            boton_casilla[datos[i + k].i, datos[i + k].j].BackColor = Color.Blue;
                             if (rangox1 == rangox2 && rangoy1 != rangoy2)
                             {// horizontal
                                 k = k + 1;
@@ -296,8 +341,10 @@ namespace Naval_cliente
                 rangoy1 = 0;
                 rangox2 = 0;
                 rangoy2 = 0;
+                celda[0] = "";
+                celda[1] = "";
 
-                if(comboBox1.Items.Count == 0)
+                if (comboBox1.Items.Count == 0)
                 {
                     jugar_btn.Show();
                 }
