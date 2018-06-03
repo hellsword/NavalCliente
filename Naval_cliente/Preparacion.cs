@@ -40,13 +40,14 @@ namespace Naval_cliente
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            /*
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null)
-                formInterface.envia_mensaje("zzzzzzzzzzzzzzzzz");
-
-            /*
+                formInterface.envia_mensaje("config:nombre:portaaviones,inicio:1,fin:5-nombre:destructor,inicio:381,fin:384-nombre:blabla,inicio:20,fin:60-nombre:fragata1,inicio:21,fin:63");
+           */
+            
+           
             int i, j, xi = 0, yi = 0;
             papel = pictureBox1.CreateGraphics();
             Pen lapiz = new Pen(Color.Black);
@@ -119,8 +120,8 @@ namespace Naval_cliente
                 listBox1.Items.Add(barcos[i].nombre + ":  " + barcos[i].espacio);
             }
             button1.Hide();
-            */
-
+           
+    
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -218,8 +219,6 @@ namespace Naval_cliente
                             resul = rangox2 - rangox1;
                         }
 
-
-
                     }
                 }
 
@@ -307,24 +306,27 @@ namespace Naval_cliente
 
         public void jugar_btn_Click(object sender, EventArgs e)
         {
-            string anuncio = "";
-            
-            for(int i = 0; i < embarcacion.Count(); i++)
+            string config = "config:";
+
+
+            for (int i = 0; i < embarcacion.Count(); i++)
             {
-                anuncio = anuncio + "nombre:"+ embarcacion[i].nombre + ",";
-                anuncio = anuncio + "inicio:"+ embarcacion[i].inicio + ",";
-                anuncio = anuncio + "fin:" + embarcacion[i].fin;
+                config = config + "nombre:"+ embarcacion[i].nombre + ",";
+                config = config + "inicio:"+ embarcacion[i].inicio + ",";
+                config = config + "fin:" + embarcacion[i].fin;
                 if(i < embarcacion.Count()-1)
-                    anuncio = anuncio + "-";
+                    config = config + "-";
                 //anuncio = anuncio + embarcacion[i].estado + "-";
                 //anuncio = anuncio + "\r\n";
             }
             
+            //Invoca la funcion enviar_mensaje en el formulario form1 mediante una Interfaz
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null)
-                formInterface.envia_mensaje(anuncio);
-            //MessageBox.Show(anuncio);
+                formInterface.envia_mensaje(config);
+
+            chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
         }
     }
  }

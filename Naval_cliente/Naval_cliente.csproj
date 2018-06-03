@@ -55,6 +55,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IForm.cs" />
+    <Compile Include="NavalWar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NavalWar.Designer.cs">
+      <DependentUpon>NavalWar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Preparacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NavalWar.resx">
+      <DependentUpon>NavalWar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Preparacion.resx">
       <DependentUpon>Preparacion.cs</DependentUpon>

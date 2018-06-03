@@ -11,6 +11,7 @@ namespace Naval_cliente
         public string nombre { get; set; }
         public int inicio { get; set; }
         public int fin { get; set; }
+        public List<int> celdas { get; set; }
         public string estado { get; set; }
     }
 }
