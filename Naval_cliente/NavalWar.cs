@@ -12,7 +12,6 @@ namespace Naval_cliente
 {
     public partial class NavalWar : Form
     {
-
         public Button[,] boton_casilla_jugador = new Button[20, 20];
         public Button[,] boton_casilla_rival = new Button[20, 20];
 
@@ -20,6 +19,10 @@ namespace Naval_cliente
         {
             InitializeComponent();
 
+            /*
+            Form1 form1 = new Form1();
+            label1.Text = form1.username;
+            */
 
             for (int i = 0; i < 20; i++)
             {
@@ -40,6 +43,7 @@ namespace Naval_cliente
                     //asientoSel = boton[i, j].Text; //el campo texto de boton lo paso a una variable pero toma el ultimo valor del ciclo for
 
                     //boton_casilla[i, j].Click += new System.EventHandler(boton_Click);
+
                 }
             }
 
@@ -67,6 +71,7 @@ namespace Naval_cliente
                     //boton_casilla[i, j].Click += new System.EventHandler(boton_Click);
                 }
             }
+            
         }
     }
 }

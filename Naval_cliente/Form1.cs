@@ -16,6 +16,7 @@ namespace Naval_cliente
     public partial class Form1 : Form, IForm
     {
         public string username;
+        public string rival;
         public NetworkStream ns;
         public TcpClient client = new TcpClient();
         public Thread thread;
@@ -48,6 +49,7 @@ namespace Naval_cliente
                         client.Connect(ip, PORT);
                         ns = client.GetStream();
                         envia_mensaje(username);
+                        
 
                         Form1.CheckForIllegalCrossThreadCalls = false;
 
@@ -55,6 +57,7 @@ namespace Naval_cliente
 
                         prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\r\n";
                         thread.Start(client);
+                        envia_mensaje("rival:" + username);
                     }
                 }
                 catch (SocketException se)
@@ -67,7 +70,7 @@ namespace Naval_cliente
             {
                 prepa.chat_text.Text = prepa.chat_text.Text + "Ya se encuentra conectado \r\n";
             }
-
+            
             prepa.Show(this);
             navalWar.Show(this);
             navalWar.Hide();
@@ -90,9 +93,14 @@ namespace Naval_cliente
                 {
                     recibe_embarcaciones(data, datos);
                 }
-                else if(datos[0] == "ready")
+                else if (datos[0] == "ready")
                 {
                     iniciar_juego();
+                }
+                else if (datos[0] == "rival")
+                {
+                    rival = datos[1];
+                    //prepa.chat_text.Text = prepa.chat_text.Text + rival;
                 }
                 /*
                 else if (datos[0] == "mov")
@@ -251,10 +259,6 @@ namespace Naval_cliente
         {
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            envia_mensaje("bla");
-        }
+        
     }
 }

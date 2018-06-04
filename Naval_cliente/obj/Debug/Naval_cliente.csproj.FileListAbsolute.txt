@@ -43,3 +43,4 @@ C:\Users\Fenrir\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_clie
 C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.csprojAssemblyReference.cache
 C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.NavalWar.resources
 C:\Users\Nicolas\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.NavalWar.resources
+C:\Users\Fenrir\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.NavalWar.resources

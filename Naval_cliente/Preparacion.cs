@@ -24,6 +24,7 @@ namespace Naval_cliente
         public Preparacion()
         {
             InitializeComponent();
+
             jugar_btn.Hide();
             int i, j;
             celda[0] = "";
@@ -162,8 +163,6 @@ namespace Naval_cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-
-
             string bar = comboBox1.Text;
 
             int rango_in = int.Parse(inicio.Text);
