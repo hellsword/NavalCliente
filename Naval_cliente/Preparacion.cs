@@ -16,8 +16,10 @@ namespace Naval_cliente
         List<clsDato> datos = new List<clsDato>();
         List<clsbarco> barcos = new List<clsbarco>();
         List<embarcacion> embarcacion = new List<embarcacion>();
+        List<Almacen> ver_casill = new List<Almacen>();
         String[] celda = new string[2];
         Button[,] boton_casilla = new Button[20, 20];
+        
         public string username;
         
 
@@ -59,9 +61,21 @@ namespace Naval_cliente
                     lista.xi = Top;
                     lista.yi = Left;
                     datos.Add(lista);
+
+                    Almacen lista2;
+                    lista2 = new Almacen();
+
+                    lista2.numero = num_casill;
+                    lista2.estado = "libre";
+                    ver_casill.Add(lista2);
+
                     num_casill = num_casill + 1;
                 }
             }
+            
+            
+
+            
 
             clsbarco bar;
             bar = new clsbarco();
@@ -268,8 +282,8 @@ namespace Naval_cliente
                 }
             }
 
-            MessageBox.Show("resul " + resul);
-            MessageBox.Show("resul2 " + resul2);
+
+            //MessageBox.Show("resul2 " + resul2);
             if (aux - 1 != resul)
             {
                 MessageBox.Show("no se puede realizar esta operacion");
@@ -292,35 +306,96 @@ namespace Naval_cliente
             else
             {
                 //MessageBox.Show("se puede realizar esta operacion "+resul);
-                int k = 0, var = resul;
+                int k = 0, var = resul, verificador = 0, var2 = resul;
 
                 for (i = 0; i < datos.Count; i++)
                 {
                     if (rangox1 == datos[i].i && rangoy1 == datos[i].j)
                     {
-
-                        while (resul >= 0)
+                        while (var2 >= 0) {
+                            if (datos[i + k].casilla == ver_casill[i + k].numero)
+                            {
+                                if (ver_casill[i + k].estado == "libre") { // se cuenta si las casillas que se ocuparan estan libre o no 
+                                    verificador = verificador + 1;
+                                    
+                                }
+                                if (rangox1 == rangox2 && rangoy1 != rangoy2)
+                                {// horizontal
+                                    k = k + 1;
+                                }
+                                if (rangox1 != rangox2 && rangoy1 == rangoy2)
+                                {//vertical 
+                                    k = k + 20;
+                                }
+                                if (rangox1 + var == rangox2 && rangoy1 + var == rangoy2)
+                                {// para movimientos en diagonal 
+                                    k = k + 21;
+                                }
+                                if (rangox1 + var == rangox2 && rangoy1 - var == rangoy2)
+                                {// para movimientos en diagonal 
+                                    k = k + 19;
+                                }
+                            }
+                            var2 = var2 - 1;
+                        }
+                    }
+                }
+                
+                //MessageBox.Show("resul " + resul);
+                //MessageBox.Show("verificador " + verificador);
+                k = 0;
+                if (resul == verificador - 1)
+                {
+                    for (i = 0; i < datos.Count; i++)
+                    {
+                        if (rangox1 == datos[i].i && rangoy1 == datos[i].j)
                         {
-                            boton_casilla[datos[i + k].i, datos[i + k].j].BackColor = Color.Blue;
-                            if (rangox1 == rangox2 && rangoy1 != rangoy2)
-                            {// horizontal
-                                k = k + 1;
-                            }
-                            if (rangox1 != rangox2 && rangoy1 == rangoy2)
-                            {//vertical 
-                                k = k + 20;
-                            }
-                            if (rangox1 + var == rangox2 && rangoy1 + var == rangoy2)
+
+                            while (resul >= 0)
                             {
-                                k = k + 21;
-                            }
-                            if (rangox1 + var == rangox2 && rangoy1 - var == rangoy2)
-                            {
-                                k = k + 19;
-                            }
+                                boton_casilla[datos[i + k].i, datos[i + k].j].BackColor = Color.Blue;
+                                boton_casilla[datos[i + k].i, datos[i + k].j].Enabled = false; // se que se precione este boton como uno de los rangos 
+                                ver_casill[i + k].estado = "ocupado"; // se marcan las casillas 
+                                if (rangox1 == rangox2 && rangoy1 != rangoy2)
+                                {// horizontal
+                                    k = k + 1;
+                                }
+                                if (rangox1 != rangox2 && rangoy1 == rangoy2)
+                                {//vertical 
+                                    k = k + 20;
+                                }
+                                if (rangox1 + var == rangox2 && rangoy1 + var == rangoy2)
+                                {// para movimientos en diagonal 
+                                    k = k + 21;
+                                }
+                                if (rangox1 + var == rangox2 && rangoy1 - var == rangoy2)
+                                {// para movimientos en diagonal 
+                                    k = k + 19;
+                                }
 
 
-                            resul = resul - 1;
+                                resul = resul - 1;
+                            }
+
+                        }
+
+                    }
+
+                    comboBox1.Items.Remove(bar);
+                    listBox1.Items.Remove(bar + ":  " + aux);
+                }
+                else {
+                    MessageBox.Show("alguna de las casillas dentro del rango ya esta ocupada. \nVuelva a elegir un nuevo rango de casillas");
+
+                    for (i = 0; i < datos.Count; i++)
+                    {
+                        for (j = 0; j < datos.Count; j++)
+                        {
+                            if (rango_in == datos[i].casilla && rango_fn == datos[j].casilla)
+                            {
+                                boton_casilla[datos[i].i, datos[i].j].BackColor = Color.Black;
+                                boton_casilla[datos[j].i, datos[j].j].BackColor = Color.Black;
+                            }
                         }
 
                     }
@@ -334,8 +409,7 @@ namespace Naval_cliente
                 emb.estado = "vivo";
                 embarcacion.Add(emb);
 
-                comboBox1.Items.Remove(bar);
-                listBox1.Items.Remove(bar + ":  " + aux);
+                
                 inicio.Text = "";
                 fin.Text = "";
                 resul = 0;
@@ -345,6 +419,7 @@ namespace Naval_cliente
                 rangoy2 = 0;
                 celda[0] = "";
                 celda[1] = "";
+                verificador = 0;
 
                 if (comboBox1.Items.Count == 0)
                 {
@@ -355,7 +430,7 @@ namespace Naval_cliente
 
         public void jugar_btn_Click(object sender, EventArgs e)
         {
-            /*
+            
             string config = "config:";
 
 
@@ -381,8 +456,9 @@ namespace Naval_cliente
                 formInterface.envia_mensaje("rival:" + username);
 
             chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
-            */
+            
 
+            /*
             IForm formInterface = this.Owner as IForm;
 
             string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
@@ -391,7 +467,19 @@ namespace Naval_cliente
 
             if (formInterface != null)
                 formInterface.envia_mensaje("rival:" + username);
+            */
         }
+
+        private void restriccion(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar)) // para que no ingresen caracteres en los textbox
+            {
+                e.Handled = true;
+            }
+            
+            
+        } 
+                  
     }
  }
 

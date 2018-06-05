@@ -81,6 +81,7 @@
             this.inicio.Name = "inicio";
             this.inicio.Size = new System.Drawing.Size(114, 24);
             this.inicio.TabIndex = 7;
+            this.inicio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.restriccion);
             // 
             // fin
             // 
@@ -88,6 +89,7 @@
             this.fin.Name = "fin";
             this.fin.Size = new System.Drawing.Size(114, 24);
             this.fin.TabIndex = 8;
+            this.fin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.restriccion);
             // 
             // label1
             // 
