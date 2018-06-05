@@ -22,6 +22,7 @@ namespace Naval_cliente
         public Thread thread;
         public Preparacion prepa = new Preparacion();
         public NavalWar navalWar = new NavalWar();
+        public string turno;
 
         int num_casill = 1;
         List<embarcacion> embarcaciones = new List<embarcacion>();
@@ -45,6 +46,7 @@ namespace Naval_cliente
                         IPAddress ip = IPAddress.Parse(ip_text.Text);
                         int PORT = Int32.Parse(puerto_text.Text);
                         username = username_text.Text;
+                        prepa.username = username;
                         
                         client.Connect(ip, PORT);
                         ns = client.GetStream();
@@ -57,7 +59,6 @@ namespace Naval_cliente
 
                         prepa.chat_text.Text = "Conectado al servidor con ip: " + ip + " y port: " + PORT + "\r\n";
                         thread.Start(client);
-                        envia_mensaje("rival:" + username);
                     }
                 }
                 catch (SocketException se)
@@ -71,6 +72,7 @@ namespace Naval_cliente
                 prepa.chat_text.Text = prepa.chat_text.Text + "Ya se encuentra conectado \r\n";
             }
             
+
             prepa.Show(this);
             navalWar.Show(this);
             navalWar.Hide();
@@ -95,12 +97,27 @@ namespace Naval_cliente
                 }
                 else if (datos[0] == "ready")
                 {
+                    turno = datos[1];
+                    navalWar.establece_turno(turno);
                     iniciar_juego();
+                }
+                else if (datos[0] == "turno")
+                {
+                    turno = datos[1];
+                    navalWar.establece_turno(turno);
                 }
                 else if (datos[0] == "rival")
                 {
                     rival = datos[1];
-                    //prepa.chat_text.Text = prepa.chat_text.Text + rival;
+
+                    navalWar.establece_usuarios(username, rival);
+
+                    //navalWar.chat_box.Text = navalWar.chat_box.Text + username + " vs " + rival;
+                    prepa.chat_text.Text = prepa.chat_text.Text + rival;
+                }
+                else if (datos[0] == "mensaje")
+                {
+                    navalWar.escribe_mensaje(datos[1]);
                 }
                 /*
                 else if (datos[0] == "mov")
@@ -118,10 +135,11 @@ namespace Naval_cliente
         {
             data = data.Substring(datos[0].Length + 1, data.Length - (datos[0].Length + 1));
             //MessageBox.Show(data);
+            /*
             prepa.chat_text.Text = prepa.chat_text.Text + "data: " + data + "\r\n";
             prepa.chat_text.Text = prepa.chat_text.Text + "tamaño config: " + datos[0].Length + "\r\n";
             prepa.chat_text.Text = prepa.chat_text.Text + "tamaño data: " + data.Length + "\r\n";
-
+            */
             datos = data.Split('-');
 
             for (int i = 0; i < datos.Length; i++)
@@ -193,7 +211,7 @@ namespace Naval_cliente
                 */
             }
 
-
+            /*
             foreach (embarcacion c in embarcaciones)
             {
                 navalWar.chat_box.Text = navalWar.chat_box.Text + "marcados: \r\n";
@@ -207,7 +225,7 @@ namespace Naval_cliente
                     i++;
                 }
             }
-
+            */
             navalWar.Show(this);
             prepa.Dispose();
         }

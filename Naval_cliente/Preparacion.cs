@@ -18,14 +18,17 @@ namespace Naval_cliente
         List<embarcacion> embarcacion = new List<embarcacion>();
         String[] celda = new string[2];
         Button[,] boton_casilla = new Button[20, 20];
-        
+        public string username;
         
 
         public Preparacion()
         {
             InitializeComponent();
 
-            jugar_btn.Hide();
+            chat_text.Text = chat_text.Text + username;
+
+            //jugar_btn.Hide();
+
             int i, j;
             celda[0] = "";
             celda[1] = "";
@@ -352,6 +355,7 @@ namespace Naval_cliente
 
         public void jugar_btn_Click(object sender, EventArgs e)
         {
+            /*
             string config = "config:";
 
 
@@ -366,13 +370,27 @@ namespace Naval_cliente
                 //anuncio = anuncio + "\r\n";
             }
             
+
             //Invoca la funcion enviar_mensaje en el formulario form1 mediante una Interfaz
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null)
                 formInterface.envia_mensaje(config);
 
+            if (formInterface != null)
+                formInterface.envia_mensaje("rival:" + username);
+
             chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
+            */
+
+            IForm formInterface = this.Owner as IForm;
+
+            string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
+            if (formInterface != null)
+                formInterface.envia_mensaje(config);
+
+            if (formInterface != null)
+                formInterface.envia_mensaje("rival:" + username);
         }
     }
  }
