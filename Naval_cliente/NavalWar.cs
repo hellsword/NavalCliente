@@ -64,7 +64,7 @@ namespace Naval_cliente
                         Font = new Font("Arial", 4, FontStyle.Bold),
                         Width = 25,
                         Height = 25,
-                        Text = String.Format("{0}", i * 20 + j + 1),// es el boton en su campo texto
+                        Text = String.Format("{0}", i + "," + j),// es el boton en su campo texto
                         Top = i * 25,
                         Left = j * 25
                     };
@@ -80,16 +80,17 @@ namespace Naval_cliente
 
         }
 
-
+        
         public void marca_casillas(string data)
         {
+            chat_box.Text = chat_box.Text + "mov: " + data + "\r\n";
             string[] datos = data.Split(',');
             int i = Convert.ToInt32(datos[0]);
             int j = Convert.ToInt32(datos[1]);
 
             boton_casilla_jugador[i, j].BackColor = Color.Red;
         }
-
+       
 
         public void establece_turno(string turno)
         {
@@ -143,25 +144,21 @@ namespace Naval_cliente
         private void boton_Click(object sender, EventArgs e)
         {
             Button botonSel = sender as Button;
-            botonSel.BackColor = Color.Red;
-
-            /*
-            int Index = ((ToolStripItem)sender).Owner.Items.IndexOf((ToolStripItem)sender);
-            chat_box.Text = chat_box.Text + "mov: " + Index + "\r\n";
-            */
-
+            
             //Invoca la funcion enviar_mensaje en el formulario form1 mediante una Interfaz
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null && turno_player)
             {
+
+                formInterface.envia_mensaje("mov:" + botonSel.Text);
+
                 turno_player = false;
                 this.Enabled = false;
                 tur.Show(this);
                 tur.label1.Text = tur.label1.Text + username;
                 chat_box.Text = chat_box.Text + "turno: " + turno_player + "\r\n";
                 chat_box.Text = chat_box.Text + "abre dialog \r\n";
-                formInterface.envia_mensaje("mov:");
                 formInterface.envia_mensaje("turno:" + true);
             }
             /*

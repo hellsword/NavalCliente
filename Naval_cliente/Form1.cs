@@ -120,12 +120,11 @@ namespace Naval_cliente
                 {
                     navalWar.escribe_mensaje(datos[1]);
                 }
-                /*
                 else if (datos[0] == "mov")
                 {
                     navalWar.marca_casillas(datos[1]);
                 }
-                */
+                
             }
 
         }
