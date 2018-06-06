@@ -97,9 +97,10 @@ namespace Naval_cliente
                 }
                 else if (datos[0] == "ready")
                 {
+                    iniciar_juego();
                     turno = datos[1];
                     navalWar.establece_turno(turno);
-                    iniciar_juego();
+
                 }
                 else if (datos[0] == "turno")
                 {
@@ -122,10 +123,9 @@ namespace Naval_cliente
                 /*
                 else if (datos[0] == "mov")
                 {
-                    data = reconstruir_datos(data);
+                    navalWar.marca_casillas(datos[1]);
                 }
                 */
-
             }
 
         }

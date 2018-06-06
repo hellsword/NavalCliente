@@ -16,5 +16,21 @@ namespace Naval_cliente
         {
             InitializeComponent();
         }
+
+        private void turno_Activated(object sender, EventArgs e)
+        {
+            if (this.Owner != null)
+            {
+                this.Owner.Enabled = false;
+            }
+        }
+
+        private void turno_Deactivate(object sender, EventArgs e)
+        {
+            if (this.Owner != null)
+            {
+                this.Owner.Enabled = true;
+            }
+        }
     }
 }

@@ -17,11 +17,13 @@ namespace Naval_cliente
         public string username;
         public string rival;
         bool turno_player;
-        turno tur = new turno();
+        public turno tur = new turno();
+        int inicio = 0;
 
         public NavalWar()
         {
             InitializeComponent();
+            
             /*
             Form1 form1 = new Form1();
             label1.Text = form1.username;
@@ -79,27 +81,37 @@ namespace Naval_cliente
         }
 
 
+        public void marca_casillas(string data)
+        {
+            string[] datos = data.Split(',');
+            int i = Convert.ToInt32(datos[0]);
+            int j = Convert.ToInt32(datos[1]);
+
+            boton_casilla_jugador[i, j].BackColor = Color.Red;
+        }
+
+
         public void establece_turno(string turno)
         {
             turno_player = Convert.ToBoolean(turno);
-            chat_box.Text = chat_box.Text + "turno: " + turno;
+            chat_box.Text = chat_box.Text + "turno: " + turno_player + "\r\n";
 
             control_turno();
         }
 
-
+        
         private void control_turno()
         {
-            if (!turno_player)
+            
+            if (turno_player)
             {
-                tur.ShowDialog(this);
-            }
-            else
-            {
+                this.Enabled = true;
                 tur.Hide();
+                chat_box.Text = chat_box.Text + "cierra dialog \r\n";
             }
+            
         }
-
+        
 
         public void establece_usuarios(string username, string rival)
         {
@@ -133,13 +145,44 @@ namespace Naval_cliente
             Button botonSel = sender as Button;
             botonSel.BackColor = Color.Red;
 
+            /*
+            int Index = ((ToolStripItem)sender).Owner.Items.IndexOf((ToolStripItem)sender);
+            chat_box.Text = chat_box.Text + "mov: " + Index + "\r\n";
+            */
+
             //Invoca la funcion enviar_mensaje en el formulario form1 mediante una Interfaz
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null && turno_player)
+            {
+                turno_player = false;
+                this.Enabled = false;
+                tur.Show(this);
+                tur.label1.Text = tur.label1.Text + username;
+                chat_box.Text = chat_box.Text + "turno: " + turno_player + "\r\n";
+                chat_box.Text = chat_box.Text + "abre dialog \r\n";
+                formInterface.envia_mensaje("mov:");
                 formInterface.envia_mensaje("turno:" + true);
+            }
+            /*
             else if (formInterface != null && !turno_player)
+            {
+                turno_player = true;
+                this.Enabled = true;
+                tur.Hide();
+                chat_box.Text = chat_box.Text + "cierra dialog \r\n";
                 formInterface.envia_mensaje("turno:" + false);
+            }
+            */
+            
+        }
+
+        private void NavalWar_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void NavalWar_Shown(object sender, EventArgs e)
+        {
         }
     }
 }

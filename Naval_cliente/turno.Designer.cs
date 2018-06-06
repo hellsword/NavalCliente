@@ -46,11 +46,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            this.ClientSize = new System.Drawing.Size(435, 100);
+            this.ClientSize = new System.Drawing.Size(713, 100);
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Name = "turno";
             this.Text = "turno";
+            this.Activated += new System.EventHandler(this.turno_Activated);
+            this.Deactivate += new System.EventHandler(this.turno_Deactivate);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -58,6 +60,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label1;
     }
 }
