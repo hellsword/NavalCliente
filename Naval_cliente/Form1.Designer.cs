@@ -56,7 +56,7 @@
             this.ip_text.Name = "ip_text";
             this.ip_text.Size = new System.Drawing.Size(214, 41);
             this.ip_text.TabIndex = 1;
-            this.ip_text.Text = "192.168.0.13";
+            this.ip_text.Text = "10.0.127.207";
             this.ip_text.TextChanged += new System.EventHandler(this.ip_text_TextChanged);
             this.ip_text.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ip_text_KeyPress);
             // 

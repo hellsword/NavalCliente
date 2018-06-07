@@ -164,12 +164,11 @@ namespace Naval_cliente
                     
                     Dispose();
                 }
-                /*
                 else if (datos[0] == "permiso")
                 {
                     prepa.permiso = datos[1];
                 }
-                */
+                
             }
 
         }

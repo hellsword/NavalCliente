@@ -21,7 +21,8 @@ namespace Naval_cliente
         int inicio = 0;
         public List<embarcacion> mi_flota = new List<embarcacion>();
         public List<embarcacion> embarcaciones = new List<embarcacion>();
-        int flota_restante = 0;
+        int flota_restante_jugador = 0;
+        int flota_restante_rival = 5;
 
         public NavalWar()
         {
@@ -85,7 +86,7 @@ namespace Naval_cliente
         {
             foreach (embarcacion c in mi_flota)
             {
-                flota_restante++;
+                flota_restante_jugador++;
                 for (int i = 0; i < c.celdas.Count; i++)
                 {
                     boton_casilla_jugador[c.celdas[i], c.celdas[i + 1]].BackColor = Color.AliceBlue;
@@ -130,13 +131,13 @@ namespace Naval_cliente
                     if (c.celdas.Count() == 0)
                     {
                         chat_box.Text = chat_box.Text + "Una de nuestras embarcaciones ha sido destruida \r\n";
-                        flota_restante--;
+                        flota_restante_jugador--;
                     }
                 }
                 
             }
 
-            chat_box.Text = chat_box.Text + "Tenemos " + flota_restante + " embarcaciones restantes \r\n";
+            chat_box.Text = chat_box.Text + "Tenemos " + flota_restante_jugador + " embarcaciones restantes \r\n";
 
             marca_casilla(fila, columna, es_mar, boton);
         }
@@ -166,7 +167,7 @@ namespace Naval_cliente
                     {
                         chat_box.Text = chat_box.Text + "Embarcacion enemiga destruida \r\n";
                         c.estado = "destruido";
-                        flota_restante--;
+                        flota_restante_rival--;
                     }
                 }
             }
@@ -180,7 +181,7 @@ namespace Naval_cliente
                     formInterface.envia_mensaje("victoria:"+username);
             }
 
-            chat_box.Text = chat_box.Text + "quedan " + flota_restante + " embarcaciones enemigas restantes \r\n";
+            chat_box.Text = chat_box.Text + "quedan " + flota_restante_rival + " embarcaciones enemigas restantes \r\n";
             marca_casilla(fila, columna, es_mar, boton);
         }
 
