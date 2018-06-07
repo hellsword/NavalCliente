@@ -461,6 +461,34 @@ namespace Naval_cliente
 
             chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
            */
+
+
+
+
+
+
+
+
+
+
+
+
+            string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
+
+            IForm formInterface = this.Owner as IForm;
+
+            if (formInterface != null)
+                formInterface.recibe_flota(config);
+
+            if (formInterface != null)
+                formInterface.envia_mensaje(config);
+
+            if (formInterface != null)
+                formInterface.envia_mensaje("rival:" + username);
+
+
+
+            /*
             bool turno = Convert.ToBoolean(permiso);
 
             if (turno && contador == 5)
@@ -482,9 +510,9 @@ namespace Naval_cliente
 
                 MessageBox.Show("todavia no se encuentra rival");
             }
+            */
 
-            
-           
+
         }
 
         private void restriccion(object sender, KeyPressEventArgs e)

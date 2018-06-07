@@ -54,8 +54,7 @@ namespace Naval_cliente
 
                 }
             }
-
-
+            
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 20; j++)
@@ -87,18 +86,8 @@ namespace Naval_cliente
             foreach (embarcacion c in mi_flota)
             {
                 flota_restante++;
-                /*
-                chat_box.Text = chat_box.Text + c.nombre + " \r\n";
-
-               
-                chat_box.Text = chat_box.Text + "marcados: \r\n";
-                */
                 for (int i = 0; i < c.celdas.Count; i++)
                 {
-                    /*
-                    chat_box.Text = chat_box.Text + c.celdas[i] + ", ";
-                    chat_box.Text = chat_box.Text + c.celdas[i + 1] + "\r\n";
-                    */
                     boton_casilla_jugador[c.celdas[i], c.celdas[i + 1]].BackColor = Color.AliceBlue;
                     i++;
                 }
@@ -280,18 +269,18 @@ namespace Naval_cliente
         private void boton_Click(object sender, EventArgs e)
         {
 
-
+            /*
             chat_box.Text = chat_box.Text + "Has ganado!!!!!!!!!! \r\n";
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null)
                 formInterface.envia_mensaje("victoria:" + username);
 
+            */
 
 
-
-
-            /*
+            
+            
             Button botonSel = sender as Button;
             
             //Invoca la funcion enviar_mensaje en el formulario form1 mediante una Interfaz
@@ -315,10 +304,9 @@ namespace Naval_cliente
                 chat_box.Text = chat_box.Text + "abre dialog \r\n";
                 formInterface.envia_mensaje("turno:" + true);
             }
-            */
+            
 
-
-            /*
+               /*
             else if (formInterface != null && !turno_player)
             {
                 turno_player = true;
