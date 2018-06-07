@@ -431,7 +431,7 @@ namespace Naval_cliente
 
         public void jugar_btn_Click(object sender, EventArgs e)
         {
-            /*
+            
             string config = "config:";
 
 
@@ -460,7 +460,7 @@ namespace Naval_cliente
                 formInterface.envia_mensaje("rival:" + username);
 
             chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
-           */
+           
 
 
 
@@ -471,7 +471,7 @@ namespace Naval_cliente
 
 
 
-
+            /*
 
             string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
 
@@ -485,7 +485,7 @@ namespace Naval_cliente
 
             if (formInterface != null)
                 formInterface.envia_mensaje("rival:" + username);
-
+            */
 
 
             /*

@@ -130,7 +130,7 @@ namespace Naval_cliente
                 }
                 else if (datos[0] == "mensaje")
                 {
-                    navalWar.escribe_mensaje(datos[1]);
+                    navalWar.escribe_mensaje(reconstruir_datos(data));
                 }
                 else if (datos[0] == "mov")
                 {
@@ -284,6 +284,22 @@ namespace Naval_cliente
             }
             Application.Exit();
         }
+
+
+        static string reconstruir_datos(string data)
+        {
+            string[] datos = data.Split(':');
+            string salida = "";
+            salida = salida + datos[1];
+
+            for (int i = 2; i < datos.Length; i++)
+            {
+                salida = salida + ":" + datos[i];
+            }
+
+            return salida;
+        }
+
 
         private void ip_text_KeyPress(object sender, KeyPressEventArgs e)
         {

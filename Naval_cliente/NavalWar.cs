@@ -123,7 +123,7 @@ namespace Naval_cliente
                             es_mar = false;
                             c.celdas.RemoveAt(i + 1);
                             c.celdas.RemoveAt(i);
-                            chat_box.Text = chat_box.Text + "celdas:  "+ c.celdas.Count() +"\r\n";
+                           // chat_box.Text = chat_box.Text + "celdas:  "+ c.celdas.Count() +"\r\n";
                         }
                         i++;
                     }
@@ -158,7 +158,7 @@ namespace Naval_cliente
                             es_mar = false;
                             c.celdas.RemoveAt(i + 1);
                             c.celdas.RemoveAt(i);
-                            chat_box.Text = chat_box.Text + "celdas:  " + c.celdas.Count() + "\r\n";
+                            //chat_box.Text = chat_box.Text + "celdas:  " + c.celdas.Count() + "\r\n";
                         }
                         i++;
                     }
@@ -174,7 +174,7 @@ namespace Naval_cliente
 
             if (victoria())
             {
-                chat_box.Text = chat_box.Text + "Has ganado!!!!!!!!!! \r\n";
+                //chat_box.Text = chat_box.Text + "Has ganado!!!!!!!!!! \r\n";
                 IForm formInterface = this.Owner as IForm;
 
                 if (formInterface != null)
@@ -234,7 +234,7 @@ namespace Naval_cliente
             {
                 this.Enabled = true;
                 tur.Hide();
-                chat_box.Text = chat_box.Text + "cierra dialog \r\n";
+                //chat_box.Text = chat_box.Text + "cierra dialog \r\n";
             }
             
         }
@@ -270,17 +270,16 @@ namespace Naval_cliente
         private void boton_Click(object sender, EventArgs e)
         {
 
-            /*
+           /*
             chat_box.Text = chat_box.Text + "Has ganado!!!!!!!!!! \r\n";
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null)
                 formInterface.envia_mensaje("victoria:" + username);
 
-            */
+           */
 
 
-            
             
             Button botonSel = sender as Button;
             
@@ -302,7 +301,7 @@ namespace Naval_cliente
                 this.Enabled = false;
                 //tur.label1.Text = tur.label1.Text + username;
                 chat_box.Text = chat_box.Text + "turno: " + turno_player + "\r\n";
-                chat_box.Text = chat_box.Text + "abre dialog \r\n";
+                //chat_box.Text = chat_box.Text + "abre dialog \r\n";
                 formInterface.envia_mensaje("turno:" + true);
             }
             
