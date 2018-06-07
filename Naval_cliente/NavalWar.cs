@@ -178,7 +178,7 @@ namespace Naval_cliente
                 IForm formInterface = this.Owner as IForm;
 
                 if (formInterface != null)
-                    formInterface.envia_mensaje("victoria:"+username);
+                    formInterface.envia_mensaje("victoria:"+rival);
             }
 
             chat_box.Text = chat_box.Text + "quedan " + flota_restante_rival + " embarcaciones enemigas restantes \r\n";
