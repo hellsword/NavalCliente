@@ -17,6 +17,7 @@ namespace Naval_cliente
     {
         public string username;
         public string rival;
+        public string permiso;
         public NetworkStream ns;
         public TcpClient client = new TcpClient();
         public Thread thread;
@@ -162,6 +163,10 @@ namespace Naval_cliente
                     navalWar.Dispose();
                     
                     Dispose();
+                }
+                else if (datos[0] == "permiso")
+                {
+                    prepa.permiso = datos[1];
                 }
 
             }

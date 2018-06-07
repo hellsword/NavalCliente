@@ -12,7 +12,7 @@ namespace Naval_cliente
 {
     public partial class Preparacion : Form
     {
-        int num_casill = 1;
+        int num_casill = 1,contador=0;
         List<clsDato> datos = new List<clsDato>();
         List<clsbarco> barcos = new List<clsbarco>();
         List<embarcacion> embarcacion = new List<embarcacion>();
@@ -22,7 +22,7 @@ namespace Naval_cliente
         public NavalWar navalWar = new NavalWar();
 
         public string username;
-        
+        public string permiso;
 
         public Preparacion()
         {
@@ -381,7 +381,7 @@ namespace Naval_cliente
                         }
 
                     }
-
+                    contador = contador + 1; 
                     comboBox1.Items.Remove(bar);
                     listBox1.Items.Remove(bar + ":  " + aux);
                 }
@@ -422,9 +422,9 @@ namespace Naval_cliente
                 celda[1] = "";
                 verificador = 0;
 
-                if (comboBox1.Items.Count == 0)
+                if (contador == 5)
                 {
-                    jugar_btn.Show();
+                    button2.Enabled = false;
                 }
             }
         }
@@ -461,20 +461,27 @@ namespace Naval_cliente
 
             chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
            */
+            bool turno = Convert.ToBoolean(permiso);
 
-           
-            string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
+            if (turno && contador == 5)
+            {
+                string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
 
-            IForm formInterface = this.Owner as IForm;
+                IForm formInterface = this.Owner as IForm;
 
-            if (formInterface != null)
-                formInterface.recibe_flota(config);
+                if (formInterface != null)
+                    formInterface.recibe_flota(config);
 
-            if (formInterface != null)
-                formInterface.envia_mensaje(config);
+                if (formInterface != null)
+                    formInterface.envia_mensaje(config);
 
-            if (formInterface != null)
-                formInterface.envia_mensaje("rival:" + username);
+                if (formInterface != null)
+                    formInterface.envia_mensaje("rival:" + username);
+            }
+            else {
+
+                MessageBox.Show("todavia no se encuentra rival");
+            }
 
             
            
@@ -482,14 +489,15 @@ namespace Naval_cliente
 
         private void restriccion(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar)) // para que no ingresen caracteres en los textbox
+            if (Char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar)) // para que no ingresen caracteres en los textbox
             {
                 e.Handled = true;
             }
-            
-            
-        } 
-                  
+
+
+
+        }
+
     }
  }
 
