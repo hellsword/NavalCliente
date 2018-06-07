@@ -9,5 +9,6 @@ namespace Naval_cliente
     interface IForm
     {
         void envia_mensaje(string data);
+        void recibe_flota(string data);
     }
 }

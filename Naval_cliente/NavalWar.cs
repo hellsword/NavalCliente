@@ -19,6 +19,9 @@ namespace Naval_cliente
         bool turno_player;
         public turno tur = new turno();
         int inicio = 0;
+        public List<embarcacion> mi_flota = new List<embarcacion>();
+        public List<embarcacion> embarcaciones = new List<embarcacion>();
+        int flota_restante = 0;
 
         public NavalWar()
         {
@@ -53,8 +56,6 @@ namespace Naval_cliente
             }
 
 
-
-
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 20; j++)
@@ -76,19 +77,148 @@ namespace Naval_cliente
                     boton_casilla_rival[i, j].Click += new System.EventHandler(boton_Click);
                 }
             }
-            
 
+            
         }
 
-        
-        public void marca_casillas(string data)
+
+        public void recibe_mi_flota()
         {
-            chat_box.Text = chat_box.Text + "mov: " + data + "\r\n";
+            foreach (embarcacion c in mi_flota)
+            {
+                flota_restante++;
+                /*
+                chat_box.Text = chat_box.Text + c.nombre + " \r\n";
+
+               
+                chat_box.Text = chat_box.Text + "marcados: \r\n";
+                */
+                for (int i = 0; i < c.celdas.Count; i++)
+                {
+                    /*
+                    chat_box.Text = chat_box.Text + c.celdas[i] + ", ";
+                    chat_box.Text = chat_box.Text + c.celdas[i + 1] + "\r\n";
+                    */
+                    boton_casilla_jugador[c.celdas[i], c.celdas[i + 1]].BackColor = Color.AliceBlue;
+                    i++;
+                }
+                
+            }
+        }
+
+
+        public void recibe_indices(string data)
+        {
             string[] datos = data.Split(',');
             int i = Convert.ToInt32(datos[0]);
             int j = Convert.ToInt32(datos[1]);
 
-            boton_casilla_jugador[i, j].BackColor = Color.Red;
+            comprueba_casilla(i, j, mi_flota, boton_casilla_jugador);
+        }
+
+
+        private void comprueba_casilla(int fila, int columna, List<embarcacion> flota, Button[,] boton)
+        {
+            bool es_mar = true;
+
+
+            foreach (embarcacion c in flota)
+            {
+                if (c.celdas.Count() != 0)
+                {
+                    for (int i = 0; i < c.celdas.Count(); i++)
+                    {
+                        if (fila == c.celdas[i] && columna == c.celdas[i + 1])
+                        {
+                            es_mar = false;
+                            c.celdas.RemoveAt(i + 1);
+                            c.celdas.RemoveAt(i);
+                            chat_box.Text = chat_box.Text + "celdas:  "+ c.celdas.Count() +"\r\n";
+                        }
+                        i++;
+                    }
+
+                    if (c.celdas.Count() == 0)
+                    {
+                        chat_box.Text = chat_box.Text + "Una de nuestras embarcaciones ha sido destruida \r\n";
+                        flota_restante--;
+                    }
+                }
+                
+            }
+
+            chat_box.Text = chat_box.Text + "Tenemos " + flota_restante + " embarcaciones restantes \r\n";
+
+            marca_casilla(fila, columna, es_mar, boton);
+        }
+
+
+        private void comprueba_casilla_enemiga(int fila, int columna, List<embarcacion> flota, Button[,] boton)
+        {
+            bool es_mar = true;
+
+            foreach (embarcacion c in flota)
+            {
+                if (c.celdas.Count() != 0)
+                {
+                    for (int i = 0; i < c.celdas.Count(); i++)
+                    {
+                        if (fila == c.celdas[i] && columna == c.celdas[i + 1])
+                        {
+                            es_mar = false;
+                            c.celdas.RemoveAt(i + 1);
+                            c.celdas.RemoveAt(i);
+                            chat_box.Text = chat_box.Text + "celdas:  " + c.celdas.Count() + "\r\n";
+                        }
+                        i++;
+                    }
+
+                    if (c.celdas.Count() == 0)
+                    {
+                        chat_box.Text = chat_box.Text + "Embarcacion enemiga destruida \r\n";
+                        c.estado = "destruido";
+                        flota_restante--;
+                    }
+                }
+            }
+
+            if (victoria())
+            {
+                chat_box.Text = chat_box.Text + "Has ganado!!!!!!!!!! \r\n";
+                IForm formInterface = this.Owner as IForm;
+
+                if (formInterface != null)
+                    formInterface.envia_mensaje("victoria:"+username);
+            }
+
+            chat_box.Text = chat_box.Text + "quedan " + flota_restante + " embarcaciones enemigas restantes \r\n";
+            marca_casilla(fila, columna, es_mar, boton);
+        }
+
+
+        private bool victoria()
+        {
+            foreach (embarcacion c in embarcaciones)
+            {
+                if (c.estado == "vivo")
+                    return false;
+            }
+
+            return true;
+        }
+
+
+        private void marca_casilla(int fila, int columna, bool es_mar, Button[,] boton)
+        {
+            if (es_mar)
+            {
+                boton[fila, columna].BackColor = Color.Red;
+            }
+            else
+            {
+                boton[fila, columna].BackColor = Color.DarkOliveGreen;
+            }
+
         }
        
 
@@ -97,6 +227,12 @@ namespace Naval_cliente
             turno_player = Convert.ToBoolean(turno);
             chat_box.Text = chat_box.Text + "turno: " + turno_player + "\r\n";
 
+            if(inicio == 0)
+            {
+                recibe_mi_flota();
+                inicio = 1;
+            }
+            
             control_turno();
         }
 
@@ -112,7 +248,7 @@ namespace Naval_cliente
             }
             
         }
-        
+
 
         public void establece_usuarios(string username, string rival)
         {
@@ -143,6 +279,19 @@ namespace Naval_cliente
 
         private void boton_Click(object sender, EventArgs e)
         {
+
+
+            chat_box.Text = chat_box.Text + "Has ganado!!!!!!!!!! \r\n";
+            IForm formInterface = this.Owner as IForm;
+
+            if (formInterface != null)
+                formInterface.envia_mensaje("victoria:" + username);
+
+
+
+
+
+            /*
             Button botonSel = sender as Button;
             
             //Invoca la funcion enviar_mensaje en el formulario form1 mediante una Interfaz
@@ -150,6 +299,11 @@ namespace Naval_cliente
 
             if (formInterface != null && turno_player)
             {
+                string[] datos = botonSel.Text.Split(',');
+                int i = Convert.ToInt32(datos[0]);
+                int j = Convert.ToInt32(datos[1]);
+
+                comprueba_casilla_enemiga(i, j, embarcaciones, boton_casilla_rival);
 
                 formInterface.envia_mensaje("mov:" + botonSel.Text);
 
@@ -161,6 +315,9 @@ namespace Naval_cliente
                 chat_box.Text = chat_box.Text + "abre dialog \r\n";
                 formInterface.envia_mensaje("turno:" + true);
             }
+            */
+
+
             /*
             else if (formInterface != null && !turno_player)
             {
@@ -171,8 +328,10 @@ namespace Naval_cliente
                 formInterface.envia_mensaje("turno:" + false);
             }
             */
-            
+
         }
+
+        
 
         private void NavalWar_Load(object sender, EventArgs e)
         {
@@ -180,6 +339,12 @@ namespace Naval_cliente
 
         private void NavalWar_Shown(object sender, EventArgs e)
         {
+        }
+
+        private void chat_box_TextChanged(object sender, EventArgs e)
+        {
+            chat_box.SelectionStart = chat_box.Text.Length;
+            chat_box.ScrollToCaret();
         }
     }
 }

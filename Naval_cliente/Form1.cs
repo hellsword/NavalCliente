@@ -26,6 +26,7 @@ namespace Naval_cliente
 
         int num_casill = 1;
         List<embarcacion> embarcaciones = new List<embarcacion>();
+        List<embarcacion> mi_flota = new List<embarcacion>();
         Graphics papel;
 
         static readonly object _lock = new object();
@@ -78,6 +79,14 @@ namespace Naval_cliente
             navalWar.Hide();
 
         }
+
+
+        public void recibe_flota(string data)
+        {
+            string[] datos = data.Split(':');
+            recibe_embarcaciones(data, datos, mi_flota);
+            navalWar.mi_flota = mi_flota;
+        }
         
 
         private void RecibeDatos(TcpClient client)
@@ -93,14 +102,16 @@ namespace Naval_cliente
 
                 if (datos[0] == "config")
                 {
-                    recibe_embarcaciones(data, datos);
+                    recibe_embarcaciones(data, datos, embarcaciones);
+
                 }
                 else if (datos[0] == "ready")
                 {
                     iniciar_juego();
+                    navalWar.embarcaciones = embarcaciones;
+                    //navalWar.mi_flota = embarcaciones;
                     turno = datos[1];
                     navalWar.establece_turno(turno);
-
                 }
                 else if (datos[0] == "turno")
                 {
@@ -122,15 +133,43 @@ namespace Naval_cliente
                 }
                 else if (datos[0] == "mov")
                 {
-                    navalWar.marca_casillas(datos[1]);
+                    navalWar.recibe_indices(datos[1]);
                 }
-                
+                else if (datos[0] == "victoria")
+                {
+                    Puntuacion puntuacion = new Puntuacion();
+                    navalWar.tur.Hide();
+
+                    string[] datos2 = datos[1].Split(',');
+
+                    if (datos2[0] == "si")
+                    {
+                        puntuacion.label1.Text = "Victoria";
+                        puntuacion.textBox1.Text = datos2[1] + "\r\n";
+                        puntuacion.textBox1.Text = puntuacion.textBox1.Text + datos2[2] + "\r\n";
+                        puntuacion.textBox1.Text = puntuacion.textBox1.Text + datos2[3] + "\r\n";
+                    }
+                    else if (datos2[0] == "no")
+                    {
+                        puntuacion.label1.Text = "Derrota";
+                        puntuacion.textBox1.Text = datos2[1] + "\r\n";
+                        puntuacion.textBox1.Text = puntuacion.textBox1.Text + datos2[2] + "\r\n";
+                        puntuacion.textBox1.Text = puntuacion.textBox1.Text + datos2[3] + "\r\n";
+                    }
+
+                    puntuacion.ShowDialog(this);
+
+                    navalWar.Dispose();
+                    
+                    Dispose();
+                }
+
             }
 
         }
 
 
-        private void recibe_embarcaciones(string data, string[] datos)
+        private void recibe_embarcaciones(string data, string[] datos, List<embarcacion> flota)
         {
             data = data.Substring(datos[0].Length + 1, data.Length - (datos[0].Length + 1));
             //MessageBox.Show(data);
@@ -154,14 +193,17 @@ namespace Naval_cliente
                 embarc.fin = Convert.ToInt32(atributos[2].Split(':')[1]);
                 embarc.estado = "vivo";
                 embarc.celdas = new List<int>();
-                embarcaciones.Add(embarc);
+                flota.Add(embarc);
+                //navalWar.mi_flota.Add(embarc);
             }
+
+            rellena_celdas(flota);
         }
 
 
-        private void iniciar_juego()
+        private void rellena_celdas(List<embarcacion> flota)
         {
-            foreach (embarcacion c in embarcaciones)
+            foreach (embarcacion c in flota)
             {
                 /*
                 navalWar.chat_box.Text = navalWar.chat_box.Text + "nombre: " + c.nombre + "\r\n";
@@ -204,32 +246,18 @@ namespace Naval_cliente
                     c.celdas.Add(inicio_fila);
                     c.celdas.Add(inicio_columna);
                 }
-                /*
-                navalWar.chat_box.Text = navalWar.chat_box.Text + "estado: " + c.estado + "\r\n";
-                navalWar.chat_box.Text = navalWar.chat_box.Text + "\r\n";
-                */
             }
 
-            /*
-            foreach (embarcacion c in embarcaciones)
-            {
-                navalWar.chat_box.Text = navalWar.chat_box.Text + "marcados: \r\n";
+        }
 
-                for (int i = 0; i < c.celdas.Count; i++)
-                {
-                    navalWar.chat_box.Text = navalWar.chat_box.Text + c.celdas[i] + ", ";
-                    navalWar.chat_box.Text = navalWar.chat_box.Text + c.celdas[i + 1] + "\r\n";
 
-                    navalWar.boton_casilla_rival[c.celdas[i], c.celdas[i + 1]].BackColor = Color.Red;
-                    i++;
-                }
-            }
-            */
+        private void iniciar_juego()
+        {
             navalWar.Show(this);
             prepa.Dispose();
         }
 
-        
+
         public void envia_mensaje(string data)
         {
             
@@ -243,10 +271,6 @@ namespace Naval_cliente
         {
             if (client.Connected)
             {
-                string mensaje_final = "ahi te van los datos estadisticos vieeeeja, son del usuario: " + username;
-                byte[] buffer = Encoding.ASCII.GetBytes(mensaje_final);
-                ns.Write(buffer, 0, buffer.Length);
-
                 client.Client.Shutdown(SocketShutdown.Send);
                 thread.Join();
                 ns.Close();
@@ -276,6 +300,18 @@ namespace Naval_cliente
         {
 
         }
-        
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (client.Connected)
+            {
+                client.Client.Shutdown(SocketShutdown.Send);
+                thread.Join();
+                ns.Close();
+                client.Close();
+                Application.Exit();
+            }
+            Application.Exit();
+        }
     }
 }

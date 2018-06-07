@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Naval_cliente
 {
-    class embarcacion
+    public class embarcacion
     {
         public string nombre { get; set; }
         public int inicio { get; set; }

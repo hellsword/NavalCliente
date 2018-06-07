@@ -45,3 +45,4 @@ C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cl
 C:\Users\Nicolas\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.NavalWar.resources
 C:\Users\Fenrir\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.NavalWar.resources
 C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.turno.resources
+C:\Users\DarkAsus\Documents\GitHub\NavalCliente\Naval_cliente\obj\Debug\Naval_cliente.Puntuacion.resources

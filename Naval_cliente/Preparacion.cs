@@ -19,7 +19,8 @@ namespace Naval_cliente
         List<Almacen> ver_casill = new List<Almacen>();
         String[] celda = new string[2];
         Button[,] boton_casilla = new Button[20, 20];
-        
+        public NavalWar navalWar = new NavalWar();
+
         public string username;
         
 
@@ -450,23 +451,32 @@ namespace Naval_cliente
             IForm formInterface = this.Owner as IForm;
 
             if (formInterface != null)
+                formInterface.recibe_flota(config);
+
+            if (formInterface != null)
                 formInterface.envia_mensaje(config);
 
             if (formInterface != null)
                 formInterface.envia_mensaje("rival:" + username);
 
             chat_text.Text = chat_text.Text + "esperando al rival... \r\n";
-            */
+           */
 
-            
+           
+            string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
+
             IForm formInterface = this.Owner as IForm;
 
-            string config = "config:nombre:portaaviones,inicio:1,fin:5-nombre:fragata1,inicio:94,fin:134-nombre:destructor,inicio:256,fin:313-nombre:fragata2,inicio:182,fin:222-nombre:submarino,inicio:106,fin:127";
+            if (formInterface != null)
+                formInterface.recibe_flota(config);
+
             if (formInterface != null)
                 formInterface.envia_mensaje(config);
 
             if (formInterface != null)
                 formInterface.envia_mensaje("rival:" + username);
+
+            
            
         }
 

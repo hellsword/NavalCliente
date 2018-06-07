@@ -46,6 +46,7 @@
             this.chat_box.Name = "chat_box";
             this.chat_box.Size = new System.Drawing.Size(1184, 123);
             this.chat_box.TabIndex = 0;
+            this.chat_box.TextChanged += new System.EventHandler(this.chat_box_TextChanged);
             // 
             // tablero1
             // 
