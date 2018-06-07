@@ -143,14 +143,14 @@ namespace Naval_cliente
 
                     string[] datos2 = datos[1].Split(',');
 
-                    if (datos2[0] == "si")
+                    if (datos2[0] == "no")
                     {
                         puntuacion.label1.Text = "Victoria";
                         puntuacion.textBox1.Text = datos2[1] + "\r\n";
                         puntuacion.textBox1.Text = puntuacion.textBox1.Text + datos2[2] + "\r\n";
                         puntuacion.textBox1.Text = puntuacion.textBox1.Text + datos2[3] + "\r\n";
                     }
-                    else if (datos2[0] == "no")
+                    else if (datos2[0] == "si")
                     {
                         puntuacion.label1.Text = "Derrota";
                         puntuacion.textBox1.Text = datos2[1] + "\r\n";
