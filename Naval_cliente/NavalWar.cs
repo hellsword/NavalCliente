@@ -298,9 +298,9 @@ namespace Naval_cliente
                 formInterface.envia_mensaje("mov:" + botonSel.Text);
 
                 turno_player = false;
-                this.Enabled = false;
                 tur.Show(this);
-                tur.label1.Text = tur.label1.Text + username;
+                this.Enabled = false;
+                //tur.label1.Text = tur.label1.Text + username;
                 chat_box.Text = chat_box.Text + "turno: " + turno_player + "\r\n";
                 chat_box.Text = chat_box.Text + "abre dialog \r\n";
                 formInterface.envia_mensaje("turno:" + true);
